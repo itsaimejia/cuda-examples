@@ -1,0 +1,51 @@
+Comandos
+
+Actualizar sistema:
+sudo -i
+sudo apt update
+sudo apt upgrade
+
+Verificación e instalación CURL:
+curl --version 
+curl -L https://github.com/toolboc/vscode/releases/download/1.32.3/code-oss_1.32.3-arm64.deb -o code-oss_1.32.3-arm64.deb
+sudo dpkg -i code-oss_1.32.3-arm64.deb
+
+Abrir code-oss (Visual Code):
+code-oss 
+
+Verificación e instalación Python 3.9:
+python3 --version
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa 
+sudo apt install python3.9
+python3.9 --version 
+
+Instalación pip:
+sudo apt install python3.9-distutils
+curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3.9 get-pip.py
+pip3.9 --version
+
+Instalación nano: 
+sudo apt install nano
+
+Abrir el archivo del PATH:
+nano 〜/.bashrc
+
+Verificación y configuración CUDA 10.2:
+nvcc --version
+whereis cuda
+cd /usr/local
+ls (para ver los archivos en la carpeta)
+cd cuda-<version>
+cd cuda-<version>
+
+Comando para agregar al PATH:
+export PATH=$PATH:/home/$USER/.local/bin
+export PATH="/usr/local/cuda-10.2/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH"
+
+Guardar cambios en el PATH:
+CTRL+O
+ENTER
+CTRL+X
