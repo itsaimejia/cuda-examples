@@ -1,7 +1,6 @@
 #include <cuda_runtime.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+
 
 void vectorAddCPU(int* a, int* b, int* c, int n){
     for(int i=0; i<n; i++){
@@ -10,14 +9,16 @@ void vectorAddCPU(int* a, int* b, int* c, int n){
 }
 
 __global__ void vectorAddGPU(int* a, int* b, int* c, int N){
-    int id= blockIdx.x;
-    c[id]= a[id] + b[id];
+    int id= blockIdx.x * blockDim.x + threadIdx.x;
+    if(id<N){
+        c[id]= a[id] + b[id];
+    }
 }
 
 int main(){
 
     //N elementos
-    int N = 10;
+    int N = 10000;
 
     //variables para los vectores del host (CPU)
     int *hostA, *hostB, *hostC;
@@ -40,7 +41,7 @@ int main(){
 
     //inicializacion de los vectores  A y B del host
     for(int i=0; i<N; i++){
-        hostA[i] = 1;
+        hostA[i] = 3;
         hostB[i] = 1;
     }
 
@@ -50,8 +51,8 @@ int main(){
     cudaMemcpy(deviceB, hostB, bytes, cudaMemcpyHostToDevice);
 
     //definicion de los bloque e hilos para el kernel
-    int nThreads = 1;
-    int nBlocks = 10; 
+    int nThreads = 128;
+    int nBlocks = (int) ceil(N / nThreads); 
 
     //llamada al metodo e inicializacion del kernel
     vectorAddGPU<<<nBlocks, nThreads>>>(deviceA, deviceB, deviceC, N);
@@ -62,7 +63,7 @@ int main(){
 
     //impresion de resultados
     for(int i=0; i<N; i++){
-       printf("%d\t",hostC[i]);
+       printf("%i - %d\t",i,hostC[i]);
     }
 
     //liberacion de la memoria de los vectores del device
