@@ -84,7 +84,7 @@ int main(){
     int nHilos = 128;
     
     //numero de bloques 
-    int nBloques = (n + nHilos - 1) / nHilos; 
+    int nBloques = (int) ceil((n + nHilos) / nHilos); 
 
     //inicializacion del kernel y ejecucion del metodo 
     convolution1D<<<nBloques, nHilos>>>(deviceInit, deviceMask, deviceResult, n, m);

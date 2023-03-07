@@ -28,7 +28,7 @@ __global__ void matrixMult(int* a, int* b, int* c, int n){
 
 int main(){
     //dimension matriz N * N (1000 * 1000)
-    int N = 10;
+    int N = 1000;
 
     //bytes para los elementos de cada matriz
     size_t bytes = sizeof(int) * N * N;
@@ -81,7 +81,7 @@ int main(){
     //impresion de resultados
     for(int i=0; i<N; i++){
        for(int j=0; j<N; j++){
-        printf("%d\t",hostC[i * N + j]);
+        printf("[%i][%i]: %d\t",i,j,hostC[i * N + j]);
        }
        
     }

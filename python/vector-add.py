@@ -3,22 +3,19 @@ from numba import cuda
 
 @cuda.jit
 def vectorAddGPU(a, b, c):
-    i = cuda.blockIdx.x
+    i = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
     c[i] = a[i] + b[i]
 
 def main():
-    N = 10
+    N = 10000
 
-    A = np.arange(N, dtype=np.int32)
-    B = np.arange(N, dtype=np.int32)
+    A = np.ones(N, dtype=np.int32)
+    B = np.ones(N, dtype=np.int32)
     C = cuda.device_array_like(A)
 
-    nBlocks = 10
-    nThreads = 1
-    vectorAddGPU[nBlocks, nThreads](A,B,C)
+    
 
-    c=C.copy_to_host()
-    print(c)
+    print(A)
 
 if __name__=='__main__':
     main()

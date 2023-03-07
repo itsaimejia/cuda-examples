@@ -8,17 +8,16 @@ void vectorAddCPU(int* a, int* b, int* c, int n){
     }
 }
 
-__global__ void vectorAddGPU(int* a, int* b, int* c, int N){
-    int id= blockIdx.x * blockDim.x + threadIdx.x;
-    if(id<N){
-        c[id]= a[id] + b[id];
-    }
+__global__ void vectorAddGPU(int* a, int* b, int* c){
+    int id= blockIdx.x ;
+    c[id]= a[id] + b[id];
+
 }
 
 int main(){
 
     //N elementos
-    int N = 10000;
+    int N = 10;
 
     //variables para los vectores del host (CPU)
     int *hostA, *hostB, *hostC;
@@ -51,11 +50,11 @@ int main(){
     cudaMemcpy(deviceB, hostB, bytes, cudaMemcpyHostToDevice);
 
     //definicion de los bloque e hilos para el kernel
-    int nThreads = 128;
-    int nBlocks = (int) ceil(N / nThreads); 
+    int nThreads = 1;
+    int nBlocks = 10; 
 
     //llamada al metodo e inicializacion del kernel
-    vectorAddGPU<<<nBlocks, nThreads>>>(deviceA, deviceB, deviceC, N);
+    vectorAddGPU<<<nBlocks, nThreads>>>(deviceA, deviceB, deviceC);
 
     //copia de la memoria del vector resultado del device
     //hacia el vector del resiltado del host
@@ -63,7 +62,7 @@ int main(){
 
     //impresion de resultados
     for(int i=0; i<N; i++){
-       printf("%i - %d\t",i,hostC[i]);
+       printf("%d\t",hostC[i]);
     }
 
     //liberacion de la memoria de los vectores del device
