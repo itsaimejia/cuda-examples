@@ -15,15 +15,17 @@ M: dimension  de la mascara
 */
 __global__ void convolution2D(int *init, int *mask, int *result, int N, int M){
     //calcular el id de los hilos de cada eje 
-    int idX = blockIdx.x * blockDim.x + threadIdx.x; //columna
     int idY = blockIdx.y * blockDim.y + threadIdx.y; //renglon
+    int idX = blockIdx.x * blockDim.x + threadIdx.x; //columna
+   
 
-    //calcular la posicion central de la mascara
+    //calcular la mitad de la dimension de la mascara
     int c = M / 2;
 
-    //calcular start para cada eje de la mascara 
-    int startX = idX - c;
+    //calcular  posicion central (start) para cada eje de la mascara 
     int startY = idY - c;
+    int startX = idX - c;
+   
 
     //variable para almacenar la suma de los productos 
     int temp = 0;
