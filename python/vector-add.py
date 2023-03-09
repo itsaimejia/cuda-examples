@@ -5,7 +5,7 @@ from numba import cuda
 def vectorAddGPU(a, b, c):
     #calcular el id de los hilos
     idX = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
-    if(idX<len(a)):
+    if(idX<len(c)):
         c[idX] = a[idX] + b[idX]
 
 def main():
