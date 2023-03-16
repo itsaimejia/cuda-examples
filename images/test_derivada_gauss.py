@@ -4,7 +4,7 @@ import os
 
 def derivada_gaussiana(img):
     # Aplica un filtro de suavizado
-    img = cv2.GaussianBlur(img, (3, 3), 0)
+    img = cv2.GaussianBlur(img, (3, 3),0)
 
     # Calcula las derivadas parciales en la dirección horizontal y vertical
     dx = cv2.Sobel(img, cv2.CV_64F, 1, 0)
@@ -17,7 +17,7 @@ def derivada_gaussiana(img):
     # Normaliza la magnitud a un rango de 0 a 255
     return cv2.normalize(mag, ang, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
 
-file_name = os.path.join(os.path.dirname(__file__), 'avengers.jpg')
+file_name = os.path.join(os.path.dirname(__file__), 'gato.png')
 assert os.path.exists(file_name)
 # Lee la imagen en escala de grises
 img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
