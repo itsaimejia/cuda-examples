@@ -36,7 +36,7 @@ def convolve2D(img, mask):
             img_res[row, col] = np.sum(square)
     
     return img_res 
-
+@jit
 def apply_kernel(img, operator='average'):
     '''
     @img: matrix source in grey scale
