@@ -29,8 +29,9 @@ __global__ void convolution1D(int *init, int *mask, int *result, int n, int m){
     //recorrido de la mascara 
     for(int i=0; i<m; i++){
         //verificar con ayuda de start que ignore todos los valores 
-        //previos a la posicion central de la mascara y que no 
-        //supere el final del vector inicial 
+        //previos a la posicion central de la mascara 
+        //y que finalice cuando esta coincida con la ultima 
+        //posicion del vector inicial 
         if(((start + i) >= 0) && ((start + i) < n )){
             //almacenar el acomulado de la suma
             temp += init[start + i] * mask[i];
