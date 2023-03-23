@@ -19,7 +19,7 @@ def main():
     #crear un vector resultado del mismo tamanio que el vector A (o B)
     C = cuda.device_array_like(A)
 
-    #definir numero de hilos por bloquer
+    #definir numero de hilos por bloque
     nThreads = 100
     #calcular el numero de bloques para el kernel
     nBlocks = N // nThreads

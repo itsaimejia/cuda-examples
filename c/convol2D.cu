@@ -32,9 +32,9 @@ __global__ void convolution2D(int *init, int *mask, int *result, int N, int M){
 
     //recorrer la mascara 
     //iterar sobre los renglones
-    for(int i=0; i<M; i++){
+    for(int i=0; i<M; ++i){
         //iterar sobre las columnas
-        for(int j=0; j<M; j++){
+        for(int j=0; j<M; ++j){
             //verificar con ayuda de start (X/Y) que ignore todos los valores 
             //previos a la posicion central de la mascara y que no 
             //supere el final matriz inicial
@@ -55,8 +55,8 @@ __global__ void convolution2D(int *init, int *mask, int *result, int N, int M){
 int main(){
     //dimension matriz inicial y resultado N * N (100 * 100)
     int N = 100;
-    //dimension de la mascara M * M (10 * 10)
-    int M = 10;
+    //dimension de la mascara M * M (9 * 9)
+    int M = 9;
 
     //bytes para los elementos de la matriz inicial, resultado y la mascara
     //dimensiones cuadradas: N*N // M*M
@@ -98,10 +98,10 @@ int main(){
     cudaMemcpy(deviceMask, hostMask, bytesM, cudaMemcpyHostToDevice);
 
     //hilos por bloque
-    int nThreads = 15;
+    int nThreads = 10;
     
     //bloques en cada cuadricula (dimension)
-    int nBlocks = (N + nThreads)/ nThreads ; 
+    int nBlocks = (N + nThreads - 1)/ nThreads ; 
 
     //variables de 3 dimensiones 
     dim3 grid(nBlocks, nBlocks); //malla / cuadricula de bloques
