@@ -9,9 +9,11 @@ result: matriz resultado
 '''
 @cuda.jit
 def convolution2D(init, mask, result):
-    #calcular el id de los hilos para los ejes X (columna) e Y(renglon)
-    colId = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
-    rowId = cuda.blockIdx.y * cuda.blockDim.y + cuda.threadIdx.y
+
+    # #calcular el id de los hilos para los ejes X (columna) e Y(renglon)
+    # colId = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
+    # rowId = cuda.blockIdx.y * cuda.blockDim.y + cuda.threadIdx.y
+    colId, rowId = cuda.grid(2)
    
     #tamanio de un eje de la mascara 
     m = mask.shape[0]

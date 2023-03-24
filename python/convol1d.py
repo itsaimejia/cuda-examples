@@ -44,7 +44,7 @@ def main():
     # se almacena en memoria del device
     vectorMask = cuda.to_device(memMask)
 
-    #crear un vector resultado del mismo tamanio que el vector A (o B)
+    #crear un vector resultado del mismo tamanio que el vector inicial
     result = cuda.device_array_like(vectorInit)
 
     #definir numero de hilos por bloque
