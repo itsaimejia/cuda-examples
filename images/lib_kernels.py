@@ -51,22 +51,6 @@ def gaussianBlur(img):
 
 
 @njit
-def average(img):
-    '''
-    @img: matrix source in grey scale 
-    Average (box filter / low blur)
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |
-    \n
-    '''
-    kernel = np.array([[0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111]])
-    result = convolve2D(img, kernel)
-    return result
-
-@njit
 def prewitt(img, axis='x'):
     '''
     @img: matrix source in grey scale 
@@ -94,7 +78,6 @@ def prewitt(img, axis='x'):
         result = convolve2D(img, kernel)
         return result
    
-
 @njit
 def sobel(img, axis='x'):
     '''
@@ -153,5 +136,21 @@ def edge(img):
     kernel = np.array([[-1,-1,-1],
                        [-1,8,-1],
                        [-1,-1,-1]])
+    result = convolve2D(img, kernel)
+    return result
+
+@njit
+def average(img):
+    '''
+    @img: matrix source in grey scale 
+    Average (box filter / low blur)
+    \t| 1/9 1/9 1/9 |\n
+    \t| 1/9 1/9 1/9 |\n
+    \t| 1/9 1/9 1/9 |
+    \n
+    '''
+    kernel = np.array([[0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
+                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
+                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111]])
     result = convolve2D(img, kernel)
     return result
