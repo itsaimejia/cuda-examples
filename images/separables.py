@@ -4,31 +4,34 @@ import os
 from lib_kernels import convolve2D
 import time 
 
+#cargar archivo
 file_name = os.path.join(os.path.dirname(__file__), 'hamster.jpg')
 assert os.path.exists(file_name)
 
+#leer imagen
 img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
+#crear imagen escala de grises
 cv2.imwrite('grey.png', img)
-kernel_gauss5x5 = np.multiply((1/273),np.array([[1,4,7,4,1],
-                                                [4,16,26,16,4],
-                                                [7,26,41,26,7],
-                                                [4,16,26,16,4],
-                                                [1,4,7,4,1]]))
 
-kernel_gauss1x5 = np.multiply((1/273),np.array([[1,4,7,4,1]]))
-kernel_gauss5x1 = np.multiply((1/273),np.array([[1],[4],[7],[4],[1]]))
+#definir kernel sobel (3x3)
+kernel_sobel = np.array([[-1,0,1],
+                           [-2,0,2],
+                           [-1,0,1]])
+#factorizar
+#kernel 1x3
+kernel_sobel1x3 = np.array([[-1,0,1]])
+#kernel 3x1
+kernel_sobel3x1 = np.array([[1],[2],[1]])
 
+#aplicar convolucion normal, kernel 3x3
+sobel3x3 = convolve2D(img,kernel_sobel)
 
-start5x5 = time.time()
-gauss5x5 = convolve2D(img,kernel_gauss5x5)
-end5x5 = time.time()
+#aplicar convolucion kernel separados
+#con kernel 1x3
+sobel1x3 = convolve2D(img,kernel_sobel1x3)
+#convolucion al resultado obtenido con kernel 3x1
+sobel_sep = convolve2D(sobel1x3,kernel_sobel3x1)
 
-start_sep = time.time()
-gauss5x1 = convolve2D(img,kernel_gauss5x1)
-gauss_sep = convolve2D(gauss5x1,kernel_gauss1x5)
-end_sep= time.time()
-
-print(end5x5-start5x5)
-print(end_sep-start_sep)
-cv2.imwrite('gauss5x5.png',gauss5x5 )
-cv2.imwrite('gauss_sep.png',gauss_sep )
+#imagenes resultado
+cv2.imwrite('sobel3x3.png',sobel3x3 )
+cv2.imwrite('sobel_sep.png',sobel_sep )

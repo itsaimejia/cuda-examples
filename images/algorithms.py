@@ -1,20 +1,20 @@
-import numpy as np
 import cv2
 import os
-import time 
-from lib_kernels import sobel
+import numpy as np
+from lib_kernels import sharpen, sobel, prewitt, gaussianBlur
+
 
 
 #cargar archivo
 file_name = os.path.join(os.path.dirname(__file__), 'hamster.jpg')
-assert os.path.exists(file_name)
 
-
+#leer imagen y convertir a escala de grises
 img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
+#crear imagen de escala de grises
 cv2.imwrite('grey.png', img)
-start = time.time()
-img_result = sobel(img, 'x')
-end = time.time()
 
-print(end - start)
-cv2.imwrite('result.png',img_result)
+#aplicar kernel
+img_result = gaussianBlur(img)
+
+#crear imagen con kernel aplicado
+cv2.imwrite('sharpen.png',img_result)

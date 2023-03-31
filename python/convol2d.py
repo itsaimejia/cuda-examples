@@ -72,6 +72,8 @@ def main():
 
     #copiar al host la memoria de la matriz resultado
     res = result.copy_to_host()
+
+    
     
     #imprimir los primeros y ultimos 10 valores de la matriz solucion
     #y el tamanio de la misma

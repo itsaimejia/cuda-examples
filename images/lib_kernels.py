@@ -1,7 +1,5 @@
 import numpy as np
-from numba import njit
 
-@njit
 def convolve2D(img, kernel):
     #dimensiones imagen origen y kernel
     img_row, img_col = img.shape
@@ -32,7 +30,7 @@ def convolve2D(img, kernel):
     #se mantengan en el rango de 0 a 255
     return np.clip(img_res,0,255) 
 
-@njit
+
 def gaussianBlur(img):
     '''
     @img: matrix source in grey scale 
@@ -50,7 +48,6 @@ def gaussianBlur(img):
 
 
 
-@njit
 def prewitt(img, axis='x'):
     '''
     @img: matrix source in grey scale 
@@ -78,7 +75,8 @@ def prewitt(img, axis='x'):
         result = convolve2D(img, kernel)
         return result
    
-@njit
+
+
 def sobel(img, axis='x'):
     '''
     @img: matrix source in grey scale 
@@ -108,7 +106,7 @@ def sobel(img, axis='x'):
     
     
 
-@njit
+
 def sharpen(img, x=1):
     '''
     @img: matrix source in grey scale 
@@ -124,7 +122,7 @@ def sharpen(img, x=1):
     result = convolve2D(img, kernel)
     return result
 
-@njit
+
 def edge(img):
     '''
     @img: matrix source in grey scale 
@@ -139,7 +137,6 @@ def edge(img):
     result = convolve2D(img, kernel)
     return result
 
-@njit
 def average(img):
     '''
     @img: matrix source in grey scale 
