@@ -1,7 +1,5 @@
 import numpy as np
-from numba import njit
 
-@njit
 def convolve2D(img, kernel):
     #dimensiones imagen origen y kernel
     img_row, img_col = img.shape
@@ -32,7 +30,7 @@ def convolve2D(img, kernel):
     #se mantengan en el rango de 0 a 255
     return np.clip(img_res,0,255) 
 
-@njit
+
 def gaussianBlur(img):
     '''
     @img: matrix source in grey scale 
@@ -50,23 +48,6 @@ def gaussianBlur(img):
 
 
 
-@njit
-def average(img):
-    '''
-    @img: matrix source in grey scale 
-    Average (box filter / low blur)
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |
-    \n
-    '''
-    kernel = np.array([[0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111]])
-    result = convolve2D(img, kernel)
-    return result
-
-@njit
 def prewitt(img, axis='x'):
     '''
     @img: matrix source in grey scale 
@@ -95,7 +76,7 @@ def prewitt(img, axis='x'):
         return result
    
 
-@njit
+
 def sobel(img, axis='x'):
     '''
     @img: matrix source in grey scale 
@@ -125,7 +106,7 @@ def sobel(img, axis='x'):
     
     
 
-@njit
+
 def sharpen(img, x=1):
     '''
     @img: matrix source in grey scale 
@@ -141,7 +122,7 @@ def sharpen(img, x=1):
     result = convolve2D(img, kernel)
     return result
 
-@njit
+
 def edge(img):
     '''
     @img: matrix source in grey scale 
@@ -153,5 +134,20 @@ def edge(img):
     kernel = np.array([[-1,-1,-1],
                        [-1,8,-1],
                        [-1,-1,-1]])
+    result = convolve2D(img, kernel)
+    return result
+
+def average(img):
+    '''
+    @img: matrix source in grey scale 
+    Average (box filter / low blur)
+    \t| 1/9 1/9 1/9 |\n
+    \t| 1/9 1/9 1/9 |\n
+    \t| 1/9 1/9 1/9 |
+    \n
+    '''
+    kernel = np.array([[0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
+                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
+                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111]])
     result = convolve2D(img, kernel)
     return result
