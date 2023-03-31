@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+import time
 from lib_kernels import sharpen, sobel, prewitt, gaussianBlur
 
 
@@ -13,8 +14,13 @@ img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
 #crear imagen de escala de grises
 cv2.imwrite('grey.png', img)
 
+
+start = time.time()
 #aplicar kernel
 img_result = gaussianBlur(img)
+end = time.time()
+
+print('Sin opencv+cuda: ',end-start)
 
 #crear imagen con kernel aplicado
-cv2.imwrite('sharpen.png',img_result)
+cv2.imwrite('gaussian.png',img_result)
