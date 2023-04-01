@@ -1,9 +1,6 @@
 import cv2
 import os
 
-
-
-    
 def main():
     
     #cargar archivo
@@ -11,8 +8,6 @@ def main():
 
     #leer imagen a color
     img = cv2.imread(file_name)
-
-    pyr = cv2.cuda.pyrDown
 
     pyramid = []
 
@@ -22,14 +17,12 @@ def main():
         img_cuda = cv2.cuda_GpuMat(pyramid[i])
         blur = cv2.cuda.createGaussianFilter(cv2.CV_8UC3, cv2.CV_8UC3, (3, 3), 0)
         apply_blur = blur.apply(img_cuda)
-        img_down = pyr(apply_blur)
-
+        img_down = cv2.cuda.pyrDown(apply_blur)
         r_img_down = img_down.download()
-
         pyramid.append(r_img_down)
     
-    for i in range(3):
-        cv2.imwrite('pyr-cuda-{}.png'.format(i + 1), pyramid[i])
+    for i in range(len(pyramid)):
+        cv2.imwrite('lvl-cuda-{}.png'.format(i), pyramid[i])
 
     
 if __name__=='__main__':
