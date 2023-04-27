@@ -2,16 +2,17 @@
 #include <stdio.h>
 
 
-void vectorAddCPU(int* a, int* b, int* c, int n){
-    for(int i=0; i<n; i++){
-        c[i]= a[i] + b[i];
-    }
-}
-
+/*
+params
+a: vector A
+b: vector B
+c: vector resultado
+*/
 __global__ void vectorAddGPU(int* a, int* b, int* c){
+    //calcular el id del bloque
     int id= blockIdx.x ;
+    //sumar cada posicion del vector a y b
     c[id]= a[id] + b[id];
-
 }
 
 int main(){

@@ -64,16 +64,13 @@ int main(){
 
     //hilos por bloque
     int nHilos = 10;
-    
     //bloques en cada cuadricula (dimension)
-    int nBloques = (int) ceil(N / nHilos); 
-
+    int nBloques = (int) ceil((N + nHilos -1)  / nHilos); 
     //variables de 3 dimensiones 
-    dim3 cuadricula(nBloques, nBloques); //cuadricula(100, 100, 1); /malla/grid
+    dim3 malla(nBloques, nBloques); //malla(100, 100, 1); 
     dim3 hilos(nHilos, nHilos); // hilos(10, 10, 1);
-
     //inicializacion del kernel y ejecucion del metodo 
-    matrixMult<<<cuadricula, hilos>>>(deviceA, deviceB, deviceC, N);
+    kernel<<<malla, hilos>>>(arg_1, arg_2, ...);
 
     //copia de la memoria de la matriz resultado del device al host
     cudaMemcpy(hostC, deviceC, bytes, cudaMemcpyDeviceToHost);

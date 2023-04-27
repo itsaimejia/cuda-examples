@@ -43,7 +43,5 @@ int main(){
        printf("%i - %d\t",i,deviceC[i]);
     }
 
-
-
     return 0;
 }
