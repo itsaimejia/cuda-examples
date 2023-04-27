@@ -20,7 +20,7 @@ def main():
     C = cuda.device_array_like(A)
 
     #definir numero de hilos por bloque
-    nThreads = 100
+    nThreads = 10
     #calcular el numero de bloques para el kernel
     nBlocks = N // nThreads
 

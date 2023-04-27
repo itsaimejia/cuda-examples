@@ -31,6 +31,7 @@ def convolution2D(init, mask, result):
     #uso de for para recorrer la mascara
     #iterar sobre los renglones 
     for i in range(m):
+        
         #iterar sobre las columnas
         for j in range(m):
             #verificar que se ignoren los valores previos a
@@ -77,9 +78,9 @@ def main():
     
     #imprimir los primeros y ultimos 10 valores de la matriz solucion
     #y el tamanio de la misma
-    print('Primeros 10:\n', res[0,:100])
+    print('Primeros 100:\n', res[0,:100])
     print('Intemedio: \n', res[N//2,:100])
-    print('Ultimos 10:\n',res[N-1,-100:])
+    print('Ultimos 100:\n',res[N-1,-100:])
     print('Tamanio matriz:', res.shape[0] * res.shape[1])
 
 if __name__=='__main__':

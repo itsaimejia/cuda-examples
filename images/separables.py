@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 import os
 from lib_kernels import convolve2D
-import time 
 
 #cargar archivo
 file_name = os.path.join(os.path.dirname(__file__), 'hamster.jpg')

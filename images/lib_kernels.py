@@ -123,31 +123,3 @@ def sharpen(img, x=1):
     return result
 
 
-def edge(img):
-    '''
-    @img: matrix source in grey scale 
-    Edge (outline)
-    \t| -1 -1 -1 |\n
-    \t| -1 +8 -1 |\n
-    \t| -1 -1 -1 |
-    \n'''
-    kernel = np.array([[-1,-1,-1],
-                       [-1,8,-1],
-                       [-1,-1,-1]])
-    result = convolve2D(img, kernel)
-    return result
-
-def average(img):
-    '''
-    @img: matrix source in grey scale 
-    Average (box filter / low blur)
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |\n
-    \t| 1/9 1/9 1/9 |
-    \n
-    '''
-    kernel = np.array([[0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111],
-                      [0.1111111111111111, 0.1111111111111111, 0.1111111111111111]])
-    result = convolve2D(img, kernel)
-    return result
